@@ -4,44 +4,24 @@ services:
   db:
     image: postgres:16
     container_name: postgres-db
-    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_DB: stocks
-    ports:
-      - "5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
 
-  app:
-    build: .
+  fetcher:
+    build: ./fetcher
     container_name: yahoo-finance-app
     depends_on:
       - db
-    environment:
-      - DB_HOST=db
-      - DB_PORT=5432
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - DB_NAME=stocks
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
-  
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin
-    restart: always
-    ports:
-      - "8080:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@admin.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    depends_on:
-      - db
+    volumes:
+      - ./tickers.json:/app/tickers.json
+    command: ["/bin/sh", "-c", "while true; do python main.py; sleep 14400; done"]
 
 volumes:
   pgdata:
