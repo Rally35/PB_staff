@@ -6,19 +6,13 @@ pipeline {
     }
 
     stages {
-        stage('Checkout') {
-            steps {
-                git url: 'https://github.com/Rally35/PB_staff.git', branch: 'main'
-            }
-        }
-
         stage('Build and Run') {
             steps {
                 script {
                     echo 'Building and running the containers...'
-                    sh 'docker-compose down -v || true'
-                    sh 'docker-compose build'
-                    sh 'docker-compose up --abort-on-container-exit --exit-code-from fetcher'
+                    sh 'docker compose down -v || true'
+                    sh 'docker compose build'
+                    sh 'docker compose up --abort-on-container-exit --exit-code-from fetcher'
                 }
             }
         }
@@ -26,7 +20,7 @@ pipeline {
         stage('Cleanup') {
             steps {
                 echo 'Cleaning up containers and volumes...'
-                sh 'docker-compose down -v'
+                sh 'docker compose down -v'
             }
         }
     }
