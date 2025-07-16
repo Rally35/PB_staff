@@ -1,0 +1,16 @@
+Stock project created for Jenkins test
+
+--------------------------------------
+
+Stock_data/
+├── docker-compose.yml
+├── tickers.json
+├── fetcher/
+│   ├── main.py              # Yahoo fetch + DB insert
+│   ├── Dockerfile
+│   ├── run.sh
+│   └── requirements.txt
+├── database/
+│   ├── init.sql             # Schema + trigger setup
+└── README.md
+

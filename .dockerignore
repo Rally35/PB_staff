@@ -1,0 +1,67 @@
+# Version control
+.git/
+.gitignore
+
+# Python cache and artifacts
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+.coverage
+
+# IDE/editor files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Build and distribution outputs
+dist/
+build/
+out/
+
+# Test and debug files
+test/
+tests/
+debug/
+*.log
+
+# Environment and secrets
+.env*
+*.env
+*.pem
+*.key
+*.crt
+config.local.*
+*.local.yml
+
+# Documentation and markdown
+README*
+*.md
+docs/
+
+# Docker and Compose files
+Dockerfile*
+docker-compose*
+
+# Temporary and local files
+tmp/
+temp/
+*.tmp
+.local/
+local/
+
+# System files
+.DS_Store
+
+# Project-specific: skip top-level tickers.json, but allow fetcher/tickers.json
+!/fetcher/tickers.json
+
+tickers.json
+
+# Skip database initialization scripts if not needed in build
+/database/
+
+# Exclude shell scripts unless needed (keep fetcher/run.sh for entrypoint)
+!/fetcher/run.sh
+*.sh
