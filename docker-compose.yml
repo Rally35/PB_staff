@@ -13,15 +13,18 @@ services:
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
     ports:
       - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "postgres"]
+      interval: 3s
+      timeout: 2s
+      retries: 5
 
   fetcher:
     build: ./fetcher
     container_name: yahoo-finance-app
     depends_on:
-      - database 
-    volumes:
-      - ./tickers.json:/app/tickers.json
-      - ./fetcher:/app
+      database:
+        condition: service_healthy
     working_dir: /app
     command: ["/bin/sh", "run.sh"]
 

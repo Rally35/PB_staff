@@ -3,16 +3,16 @@ Stock project created for Jenkins test
 --------------------------------------
 
 Stock_data/
-├── docker-compose.yml
-├── tickers.json
+├── docker-compose.yml        # Orchestrates the app and database containers
+├── tickers.json              # List of stock tickers to fetch
 ├── fetcher/
-│   ├── main.py              # Yahoo fetch + DB insert
-│   ├── Dockerfile
-│   ├── run.sh
-│   └── requirements.txt
-├── database/
-│   ├── init.sql             # Schema + trigger setup
-└── README.md
+│   ├── Dockerfile            # Docker setup for the fetcher
+│   ├── main.py               # Python script to fetch and insert data
+│   ├── run.sh                # Entrypoint to run the fetcher
+│   └── requirements.txt      # Python dependencies
+└── database/
+    └── init.sql              # SQL to initialize the database schema
+
 
 
 Running with Docker

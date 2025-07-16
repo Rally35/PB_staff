@@ -1,5 +1,6 @@
 -- db/init.sql
 CREATE TABLE IF NOT EXISTS stocks_import (
+    date DATE,
     ticker TEXT NOT NULL,
     company_name TEXT NOT NULL,
     price NUMERIC NOT NULL,
@@ -8,6 +9,7 @@ CREATE TABLE IF NOT EXISTS stocks_import (
 );
 
 CREATE TABLE IF NOT EXISTS stocks_staging (
+    date DATE,
     ticker TEXT NOT NULL,
     company_name TEXT NOT NULL,
     price NUMERIC NOT NULL,
@@ -21,10 +23,10 @@ BEGIN
     IF NOT EXISTS (
         SELECT 1 FROM stocks_staging
         WHERE ticker = NEW.ticker
-        AND import_ts = NEW.import_ts
+        AND date = NEW.date
     ) THEN
-        INSERT INTO stocks_staging (ticker, company_name, price, volume, import_ts)
-        VALUES (NEW.ticker, NEW.company_name, NEW.price, NEW.volume, NEW.import_ts);
+        INSERT INTO stocks_staging (date, ticker, company_name, price, volume, import_ts)
+        VALUES (NEW.date, NEW.ticker, NEW.company_name, NEW.price, NEW.volume, NEW.import_ts);
     END IF;
     RETURN NEW;
 END;
