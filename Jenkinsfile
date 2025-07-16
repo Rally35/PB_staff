@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git url: 'https://github.com/your-username/your-stock-repo.git', branch: 'main'
+                git url: 'https://github.com/Rally35/PB_staff.git', branch: 'main'
             }
         }
 
